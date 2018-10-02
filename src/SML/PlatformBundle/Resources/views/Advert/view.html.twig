@@ -1,0 +1,83 @@
+{# src/OC/PlatformBundle/Resources/view/Advert/view.html.twig #}
+
+{% extends "@SMLPlatform/layout.html.twig" %}
+
+{% block title %}
+    Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block smlplatform_body %}
+    <div id="advertImg" style="display: table-cell; padding:10px;">
+    {# On vérifie qu'une image soit bien associée à l'annonce #}
+    {% if advert.image is not null %}
+        <img src="{{ asset(advert.image.webPath) }}"
+             alt="{{ advert.image.alt }}" style="width:200px;">
+    {% endif %}
+    </div>
+    <div id="advertTitle" style="display: table-cell;">
+        <h2>{{ advert.title }}</h2>
+        <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+    </div>
+    <div class="well">
+        {{ advert.content }}
+    </div>
+
+    {# Liste des AdvertSkills #}
+    {% if listAdvertSkills|length > 0 %}
+        <div class ="well">
+            <b>Cette annonce requiert les compétences suivantes :</b>
+            <ul>
+                {% for advertSkill in listAdvertSkills %}
+                    <li>{{ advertSkill.skill.name }} : niveau {{ advertSkill.level }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
+    {# Liste des Categories #}
+    {% if not advert.categories.empty %}
+        <div class ="well">
+            <b>Cette annonce est parue dans les catégories suivantes : </b><br/>
+            {% for category in advert.categories %}
+                {{ category.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br/>
+
+    {# Liste des Applications #}
+    {% if listApplications is not empty %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>Candidatures :</h3>
+                <ul>
+                {% for application in listApplications %}
+                    <li>
+                        <b>{{ application.author }}</b>, <i>le {{ application.date|date("d/m/Y à H:i:s") }} : </i>
+                        <p>{{ application.content }}</p>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    <br/>
+
+    <p>
+        <a href="{{ path('sml_platform_home') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la liste
+        </a>
+        <a href="{{ path('sml_platform_edit', {'id': advert.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            Modifier l'annonce
+        </a>
+        <a href="{{ path('sml_platform_delete', {'id': advert.id}) }}" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+            Supprimer l'annonce
+        </a>
+    </p>
+
+{% endblock %}

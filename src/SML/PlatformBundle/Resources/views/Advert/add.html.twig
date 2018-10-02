@@ -1,0 +1,21 @@
+{% extends "@SMLPlatform/layout.html.twig" %}
+
+{% block title %}
+    Ajouter une annonce - {{ parent() }}
+{% endblock %}
+
+{% block smlplatform_body %}
+
+    <h2>Ajouter une annonce</h2>
+
+    {{ include("@SMLPlatform/Advert/form.html.twig") }}
+
+
+    <p>
+        <a href="{{ path('sml_platform_home') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à l'accueil
+        </a>
+    </p>
+
+{% endblock %}

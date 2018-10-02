@@ -1,0 +1,4 @@
+services:
+#    sml_user.example:
+#        class: SML\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

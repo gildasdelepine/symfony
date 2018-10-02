@@ -1,0 +1,35 @@
+{% extends "@SMLPlatform/layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block smlplatform_body %}
+
+    <h2>Liste des annonces</h2>
+
+    <ul style="list-style-type: none; padding-left: 10px;">
+        {% for advert in listAdvWithCat %}
+            <li style="padding: 10px">
+                <b><a style="color:#FF7F50;" href="{{ path('sml_platform_view', {'id': advert.id}) }}">
+                    {{ advert.title }}
+                </a></b>
+                par {{ advert.author }},
+                le {{ advert.date|date('d/m/Y') }}
+            </li>
+        {% else %}
+            <li>Pas (encore !) d'annonces</li>
+        {% endfor %}
+    </ul>
+
+    <br/>
+
+    <h2>Dernières candidatures</h2>
+        {% for app in listApplications %}
+        <p>
+            <b>{{ app.date|date('d/m/Y') }} : {{ app.author }}</b> <br/>
+            {{ app.content }}
+        </p>
+        {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,29 @@
+services:
+#    sml_platform.example:
+#        class: SML\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    sml_platform.antispam:
+        class:  SML\PlatformBundle\Antispam\SMLAntispam
+        arguments:
+            $mailer: "@mailer"
+            $locale: "%locale%"
+            $minLength: 50
+
+    sml_platform.email.application_mailer:
+        class:  SML\PlatformBundle\Email\ApplicationMailer
+        arguments:
+            $mailer: "@mailer"
+
+    sml_platform.doctrine_listener.application_creation:
+        class: SML\PlatformBundle\DoctrineListener\ApplicationCreationListener
+        arguments:
+            - "@sml_platform.email.application_mailer"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+
+    sml_platform.validator.antiflood:
+        class:  SML\PlatformBundle\Validator\AntifloodValidator
+        arguments:  ["@request_stack", "@doctrine.orm.entity_manager"]
+        tags:
+            - {name: validator.constraint_validator, alias: sml_platform_antiflood}
+

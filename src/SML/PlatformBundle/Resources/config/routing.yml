@@ -1,0 +1,33 @@
+sml_platform_home:
+    path:     /{page}
+    defaults:
+        _controller: SMLPlatformBundle:Advert:index
+        page : 1
+    requirements:
+        page : \d*
+
+sml_platform_view:
+    path:     /advert/{id}
+    defaults:
+        _controller: SMLPlatformBundle:Advert:view
+    requirements:
+        id: \d*
+
+sml_platform_add:
+    path:     /add
+    defaults:
+        _controller: SMLPlatformBundle:Advert:add
+
+sml_platform_edit:
+    path:   /edit/{id}
+    defaults:
+        _controller: SMLPlatformBundle:Advert:edit
+    requirements:
+        id: \d+
+
+sml_platform_delete:
+    path: /delete/{id}
+    defaults:
+        _controller:  SMLPlatformBundle:Advert:delete
+    requirements:
+        id: \d+
