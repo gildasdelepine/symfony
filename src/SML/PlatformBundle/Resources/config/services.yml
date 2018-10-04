@@ -6,8 +6,9 @@ services:
         class:  SML\PlatformBundle\Antispam\SMLAntispam
         arguments:
             $mailer: "@mailer"
-            $locale: "%locale%"
             $minLength: 50
+        calls:
+            - [ setLocale, ["%locale%"] ]
 
     sml_platform.email.application_mailer:
         class:  SML\PlatformBundle\Email\ApplicationMailer
