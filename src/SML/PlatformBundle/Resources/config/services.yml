@@ -27,3 +27,14 @@ services:
         tags:
             - {name: validator.constraint_validator, alias: sml_platform_antiflood}
 
+    sml_platform.twig.antispam_extension:
+        class: SML\PlatformBundle\Twig\AntispamExtension
+        arguments:
+            - "@sml_platform.antispam"
+        tags:
+            - { name: twig.extension }
+
+    sml_platform.form.ckeditor:
+        class: SML\PlatformBundle\Form\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }
