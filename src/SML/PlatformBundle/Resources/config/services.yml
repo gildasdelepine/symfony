@@ -50,3 +50,16 @@ services:
             - "2018-10-31"
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: processBeta }
+
+    sml_platform.bigbrother.message_notificator:
+        class: SML\PlatformBundle\Bigbrother\MessageNotificator
+        arguments:
+            - "@mailer"
+
+    sml_platform.bigbrother.message_listener:
+        class: SML\PlatformBundle\Bigbrother\MessageListener
+        arguments:
+            - "@sml_platform.bigbrother.message_notificator"
+            - ["alexandre", "marine", "pierre"]
+        tags:
+            - { name: kernel.event_listener, event: sml_platform.post_message, method: processMessage }

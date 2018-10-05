@@ -11,6 +11,8 @@ namespace SML\PlatformBundle\Controller;
 use SML\PlatformBundle\Entity\Advert;
 use SML\PlatformBundle\Entity\AdvertSkill;
 use SML\PlatformBundle\Entity\Application;
+use SML\PlatformBundle\Event\PlatformEvents;
+use SML\PlatformBundle\Event\MessagePostEvent;
 use SML\PlatformBundle\Form\AdvertEditType;
 use SML\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -106,6 +108,16 @@ class AdvertController extends Controller
     $form = $this->createForm(AdvertType::class, $advert);
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+      // On crée l'évènement avec ses 2 arguments
+      $event = new MessagePostEvent($advert->getContent(), $this->getUser());
+
+      // On déclenche l'évènement
+      $this->get('event_dispatcher')->dispatch(PlatformEvents::POST_MESSAGE, $event);
+
+      // On récupère ce qui a été modifié par le ou les listeners, ici le message
+      $advert->setContent($event->getMessage());
+
+
       $em = $this->getDoctrine()->getManager();
       $em->persist($advert);
       $em->flush();
