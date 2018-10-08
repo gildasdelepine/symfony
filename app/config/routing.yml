@@ -1,6 +1,8 @@
 sml_platform:
     resource: "@SMLPlatformBundle/Resources/config/routing.yml"
-    prefix:   /platform
+    prefix:   /{_locale}/platform
+    requirements:
+        _locale: fr|en|de
 
 app:
     resource: '@AppBundle/Controller/'

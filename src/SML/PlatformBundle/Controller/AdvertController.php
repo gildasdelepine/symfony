@@ -184,4 +184,11 @@ class AdvertController extends Controller
       'form' => $form->createView(),
     ));
   }
+
+  public function translationAction($name)
+  {
+    return $this->render('SMLPlatformBundle:Advert:translation.html.twig', array(
+      'name' => $name
+    ));
+  }
 }
