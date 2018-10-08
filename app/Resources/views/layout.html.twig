@@ -46,13 +46,16 @@
                     <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
                 </ul>
             {% endif %}
+            <br/>
+            Aujourd'hui nous sommes le <br/>
+            {{ 'now'|localizeddate('full', 'none') }}<br/>
+            et il est {{ 'now'|localizeddate('none', 'short') }}<br/>
         </div>
         <div id="content" class="col-md-9">
             {% block body %}
             {% endblock %}
         </div>
     </div>
-
     <hr>
 
     <footer>

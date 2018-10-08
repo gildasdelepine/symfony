@@ -2,6 +2,6 @@
     <body>
     <br/>
         <h1>Test translation</h1>
-        {{ 'Hello'|trans }} {{ name }}!
+        {{ 'Hello'|trans({'%name%': name}) }}
     </body>
 </html>

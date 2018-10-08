@@ -1,2 +1,5 @@
 # Fichier de tradution pour les messages d'erreurs appelé par Symfony
-#Hello: Bonjour
+password:
+  length:
+    short: "Vous avez entré {{ value }} caractères. Or, le mot de passe ne peut en comporter moins de {{ limit }}"
+    long:  "Vous avez entré {{ value }} caractères. Or, le mot de passe ne peut en comporter plus de {{ limit }}"

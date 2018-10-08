@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block smlplatform_body %}
-
+    <p>
+        {{ 'advert.nombre'|transchoice(listAdvWithCat|length) }}
+    </p>
     <h2>Liste des annonces</h2>
 
     <ul style="list-style-type: none; padding-left: 10px;">
