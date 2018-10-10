@@ -1,0 +1,8 @@
+#menu {
+    padding: 15px;
+}
+
+/* Exemple pour cssrewrite */
+.toto {
+    content:url(../../../../../../web/uploads/img/1.jpeg);
+}
