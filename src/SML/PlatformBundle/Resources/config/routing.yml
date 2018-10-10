@@ -31,3 +31,8 @@ sml_platform_delete:
         _controller:  SMLPlatformBundle:Advert:delete
     requirements:
         id: \d+
+
+sml_platform_paramconverter:
+    path: /test/{json}
+    defaults:
+        _controller: SMLPlatformBundle:Advert:ParamConverter

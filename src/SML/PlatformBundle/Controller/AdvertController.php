@@ -17,6 +17,7 @@ use SML\PlatformBundle\Form\AdvertEditType;
 use SML\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -65,22 +66,28 @@ class AdvertController extends Controller
     ));
   }
 
-  public function viewAction($id)
+  /**
+   * possibilité de changer le nom du paramètre (!= attribut de l'entité , ex : advert_id)
+   * pour cela, rajouter : ParamConverter("advert", options={"mapping": {"advert_id": "id"}})
+   *
+   * @param Advert $advert
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function viewAction(Advert $advert)
   {
     // On récupère le repository
-    $em = $this->getDoctrine()
-      ->getManager();
+    $em = $this->getDoctrine()->getManager();
     //->getRepository(Advert::class);
     // ou ->getRepository('SMLPlatformBundle:Advert');
 
     // On récupère l'entité correspondante à l'id $id
-    $advert = $em->getRepository(Advert::class)->find($id);
+    //$advert = $em->getRepository(Advert::class)->find($id);
 
     // $advert est donc une instance de OC\PlatformBundle\Entity\Advert
     // ou null si l'id $id  n'existe pas, d'où ce if :
-    if (null === $advert) {
+    /*if (null === $advert) {
       throw new NotFoundHttpException("L'annonce d'id " . $id . " n'existe pas.");
-    }
+    }*/
 
 
     // On récupère la liste des candidatures de cette annonce
@@ -190,5 +197,18 @@ class AdvertController extends Controller
     return $this->render('SMLPlatformBundle:Advert:translation.html.twig', array(
       'name' => $name
     ));
+  }
+
+
+  /**
+   * Fonction pour faire le json_decode auto avec le paramConverter
+   *
+   * @param $json
+   * @paramConverter("json")
+   * @return Response
+   */
+  public function ParamConverterAction($json)
+  {
+    return new Response(print_r($json, true));
   }
 }

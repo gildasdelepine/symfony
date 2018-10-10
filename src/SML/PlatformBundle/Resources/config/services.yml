@@ -63,3 +63,8 @@ services:
             - ["alexandre", "marine", "pierre"]
         tags:
             - { name: kernel.event_listener, event: sml_platform.post_message, method: processMessage }
+
+    sml_platform.paramconverter.json:
+        class: SML\PlatformBundle\ParamConverter\JsonParamConverter
+        tags:
+            - { name: request.param_converter }
